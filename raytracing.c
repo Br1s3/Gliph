@@ -4,14 +4,13 @@
 # include <math.h>
 
 #if defined(PROG1)
-#    define LIBGRAPH_IMPLEMENTATION
-#    include "libgraph.h"
+#    define GRAPHLIB_IMPLEMENTATION
+#    include "graphlib.h"
 #elif defined(PROG2)
-#    include "libgraph.h"
+#    include "graphlib.h"
 #else
 #    include "graph.h"
 #endif
-
 
 # define HEIGHT	(7*9)
 # define WIDTH	(10*16)
@@ -63,7 +62,8 @@ int main()
     shadow2.color = ' ';
     shadow2.radius = 10;
 
-    char **console = mem_alloc(HEIGHT, WIDTH);
+    // char **console = mem_alloc(HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
 
     for (double k = 0; k < 5*M_PI; k+=0.01) {
 	ConsoleClear(console, WIDTH, HEIGHT, ' ');
@@ -85,7 +85,9 @@ int main()
 	usleep(5000);
     }
     
-    mem_free(console, HEIGHT);
+
+    // mem_free(console, HEIGHT);
+    GRAPHLIB_FREE2D(console, HEIGHT);
     return 0;
 }
 

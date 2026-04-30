@@ -1,27 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
 #include "graph.h"
 
-char **mem_alloc(int H, int W)
-{
-   char **ptr = (char **)malloc(sizeof(char *) * H);
-   ERRALLOC(ptr);
-   for (int i = 0; i < H; i++) {
-      ptr[i] = (char *)malloc(sizeof(char)*W + 1);
-      ERRALLOC(ptr[i]);
-   }
-   return ptr;
-}
+// char **mem_alloc(int H, int W)
+// {
+//    char **ptr = (char **)malloc(sizeof(char *) * H);
+//    TESTMALLOC(ptr);
+//    for (int i = 0; i < H; i++) {
+//       ptr[i] = (char *)malloc(sizeof(char)*W + 1);
+//       TESTMALLOC(ptr[i]);
+//    }
+//    return ptr;
+// }
 
-void mem_free(char **ptr, int H)
-{
-   for (int i = 0; i < H; i++) {
-      free(ptr[i]);
-   }
-   free(ptr);
-}
+// void mem_free(char **ptr, int H)
+// {
+//    for (int i = 0; i < H; i++) {
+//       free(ptr[i]);
+//    }
+//    free(ptr);
+// }
 
 void PrintConsole(char **pixels, short width, short height)
 {
@@ -29,20 +25,20 @@ void PrintConsole(char **pixels, short width, short height)
    char pixels_1D[(width+1) * height];
    for (i = 0; i < height; ++i) {
       for (j = 0; j < width+1; ++j) {
-         if      (j < width)     pixels_1D[DEC_LIBGRAPH(i, j)] = pixels[i][j];
-         else if (i < height-1)  pixels_1D[DEC_LIBGRAPH(i, j)] = '\n';
-   	 else                    pixels_1D[DEC_LIBGRAPH(i, j)] = '\0';
+         if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
+         else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
+   	 else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
       }
    }
 
-   MOVETO_LIBGRAPH(0, 0);
+   MOVETO_GRAPHLIB(0, 0);
    puts(pixels_1D);
 }
 
 void PrintConsoleSpace(char **pixels, short width, short height)
 {
    short i, j;
-   MOVETO_LIBGRAPH(0, 0);
+   MOVETO_GRAPHLIB(0, 0);
    for (i = 0; i < height; ++i) {
        for (j = 0; j < width+1; ++j) {
 	   putchar(pixels[i][j]);
@@ -193,10 +189,10 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 // char **mem_alloc(int H, int W)
 // {
 //    char **ptr = (char **)malloc(sizeof(char *) * H);
-//    ERRALLOC(ptr);
+//    TESTMALLOC(ptr);
 //    for (int i = 0; i < H; i++) {
 //       ptr[i] = (char *)malloc(sizeof(char)*W + 1);
-//       ERRALLOC(ptr[i]);
+//       TESTMALLOC(ptr[i]);
 //    }
 //    return ptr;
 // }

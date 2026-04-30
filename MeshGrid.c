@@ -3,10 +3,10 @@
 #include <unistd.h>
 
 #if defined(PROG1)
-#    define LIBGRAPH_IMPLEMENTATION
-#    include "libgraph.h"
+#    define GRAPHLIB_IMPLEMENTATION
+#    include "graphlib.h"
 #elif defined(PROG2)
-#    include "libgraph.h"
+#    include "graphlib.h"
 #else
 #    include "graph.h"
 #endif
@@ -47,7 +47,8 @@ void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshg
 
 int main()
 {
-    char **console = mem_alloc(HEIGHT, WIDTH);
+    // char **console = mem_alloc(HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
     Window wind;
 
     for (int k = 0; k < 255; k++) {
@@ -71,7 +72,7 @@ int main()
 	usleep(100000);
 	printf("k = %d\n", k);
     }
-    mem_free(console, HEIGHT);
-
+    // mem_free(console, HEIGHT);
+    GRAPHLIB_FREE2D(console, HEIGHT);
     return 0;
 }

@@ -6,6 +6,7 @@ CFLAGS +=	\
 -Wextra		\
 -Wall   	\
 -lm   	        \
+-g3
 
 
 MODE ?= PROG1
@@ -25,11 +26,11 @@ static:
 	$(MAKE) --no-print-directory MODE=PROGSTAT $(EXEC)
 
 ifeq ($(MODE), PROG1)
-%: %.c libgraph.h
+%: %.c graphlib.h
 	@echo Simple compilation of programs
 	$(CC) $< -o $@ -D$(MODE) $(CFLAGS)
 else ifeq ($(MODE), PROG2)
-%: %.c libgraph.o
+%: %.c graphlib.o
 	@echo Compile with obj lib
 	$(CC) $^ -o $@ -D$(MODE) $(CFLAGS)
 else ifeq ($(MODE), PROGDYN)
@@ -45,8 +46,8 @@ else
 endif
 
 
-libgraph.o: libgraph.h
-	$(CC) -DLIBGRAPH_IMPLEMENTATION -x c -c $<
+graphlib.o: graphlib.h
+	$(CC) -DGRAPHLIB_IMPLEMENTATION -x c -c $<
 
 libgraph.so: graph.c
 	$(CC) $(CFLAGS) -fPIC -shared -o $@ $<

@@ -3,10 +3,10 @@
 #include <math.h>
 
 #if defined(PROG1)
-#    define LIBGRAPH_IMPLEMENTATION
-#    include "libgraph.h"
+#    define GRAPHLIB_IMPLEMENTATION
+#    include "graphlib.h"
 #elif defined(PROG2)
-#    include "libgraph.h"
+#    include "graphlib.h"
 #else
 #    include "graph.h"
 #endif
@@ -114,7 +114,8 @@ int main()
     Square_init(&S);
     Square_Connexion_init(&Sc);
     
-    char **console = mem_alloc(HEIGHT, WIDTH);
+    // char **console = mem_alloc(HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;
@@ -151,6 +152,7 @@ int main()
 
 	usleep(dt*1000000);
     }
-    mem_free(console, HEIGHT);
+    // mem_free(console, HEIGHT);
+    GRAPHLIB_FREE2D(console, HEIGHT);
     return 0;    
 }

@@ -39,3 +39,6 @@ _All triangles_
 _How to draw a line:_
 
 https://www.desmos.com/calculator/z1dthkvot0
+
+## TODO:
+- Correct difference between graphlib.h and graph.h/c with valgrind
