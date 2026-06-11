@@ -18,19 +18,21 @@
 #define GRAPHLIB_MALLOC2D(type, name, H, W)	                \
     type **name = (type **)malloc(sizeof(type *) * ((H)+1));    \
     TESTMALLOC(name);					        \
-    for (ssize_t i = 0; i < ((H)); i++) {        	        \
-	name[i] = (type *)malloc(sizeof(type)*((W) + 1));	\
-	TESTMALLOC(name[i]);					\
-    }								\
+    do {                                                        \
+	for (ssize_t i = 0; i < ((H)); i++) {        	        \
+	    name[i] = (type *)malloc(sizeof(type)*((W) + 1));	\
+	    TESTMALLOC(name[i]);				\
+	}							\
     name[(H)] = NULL;	        				\
-do {} while (0) 
+    } while (0)
 
 
 #define GRAPHLIB_FREE2D(name, H)	                                             \
     if (name == NULL) fprintf(stdout, "WARNING: %s is NULL, %d\n", #name, __LINE__); \
-    for (ssize_t i = 0; i < (H); i++) free(name[i]);			             \
-    free(name);								             \
-do {} while (0) 
+    do {                                                                             \
+        for (ssize_t i = 0; i < (H); i++) free(name[i]);			     \
+	free(name);								     \
+    } while (0)
 
 
 #define TESTMALLOC(x)                                                          \
