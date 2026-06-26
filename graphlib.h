@@ -15,23 +15,23 @@
 #define ABS_GRAPHLIB(x) ((x) < 0 ? (-x) : (x))
 
 
-#define GRAPHLIB_MALLOC2D(type, name, H, W)	                \
+#define GRAPHLIB_MALLOC2D(type, name, H, W)                     \
     type **name = (type **)malloc(sizeof(type *) * ((H)+1));    \
-    TESTMALLOC(name);					        \
+    TESTMALLOC(name);                                           \
     do {                                                        \
-	for (ssize_t i = 0; i < ((H)); i++) {        	        \
-	    name[i] = (type *)malloc(sizeof(type)*((W) + 1));	\
-	    TESTMALLOC(name[i]);				\
-	}							\
-    name[(H)] = NULL;	        				\
+        for (ssize_t i = 0; i < ((H)); i++) {                   \
+            name[i] = (type *)malloc(sizeof(type)*((W) + 1));	\
+            TESTMALLOC(name[i]);                                \
+        }                                                       \
+    name[(H)] = NULL;                                           \
     } while (0)
 
 
-#define GRAPHLIB_FREE2D(name, H)	                                             \
+#define GRAPHLIB_FREE2D(name, H)                                                     \
     if (name == NULL) fprintf(stdout, "WARNING: %s is NULL, %d\n", #name, __LINE__); \
     do {                                                                             \
-        for (ssize_t i = 0; i < (H); i++) free(name[i]);			     \
-	free(name);								     \
+        for (ssize_t i = 0; i < (H); i++) free(name[i]);                             \
+        free(name);                                                                  \
     } while (0)
 
 
@@ -55,8 +55,6 @@ typedef struct
    float x, y;
 }COORDF;
 
-// char **mem_alloc(int H, int W);
-// void mem_free(char **ptr, int H);
 
 void ConsoleClear(char **pixels, short width, short height, const char clear);
 
@@ -77,25 +75,6 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 
 # ifdef GRAPHLIB_IMPLEMENTATION
 
-// char **mem_alloc(int H, int W)
-// {
-//    char **ptr = (char **)malloc(sizeof(char *) * H);
-//    TESTMALLOC(ptr);
-//    for (int i = 0; i < H; i++) {
-//       ptr[i] = (char *)malloc(sizeof(char)*W + 1);
-//       TESTMALLOC(ptr[i]);
-//    }
-//    return ptr;
-// }
-
-// void mem_free(char **ptr, int H)
-// {
-//    for (int i = 0; i < H; i++) {
-//       free(ptr[i]);
-//    }
-//    free(ptr);
-// }
-
 void PrintConsole(char **pixels, short width, short height)
 {
    short i, j;
@@ -104,7 +83,7 @@ void PrintConsole(char **pixels, short width, short height)
       for (j = 0; j < width+1; ++j) {
          if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
          else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
-   	 else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
+         else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
       }
    }
 
@@ -140,10 +119,10 @@ void PrintRectangle(char **pixels, short width, short height, int x, int y, int 
 {
     short i, j;
     for (i = -height/2; i < height/2; i++) {
-	for (j = -width/2; j < width/2; j++) {
-	    if (((j >= x) && (j < x+largeur)) && ((i >= y) && (i < y+hauteur)))
-	        pixels[i+height/2][j+width/2] = fd;
-	}
+        for (j = -width/2; j < width/2; j++) {
+            if (((j >= x) && (j < x+largeur)) && ((i >= y) && (i < y+hauteur)))
+                pixels[i+height/2][j+width/2] = fd;
+        }
     }
 }
 
@@ -164,9 +143,9 @@ void PrintLine(char **pixels, const short width, const short height, int ax, int
     double x;
     double y;
     for (double t = 0; t < 1; t+=0.01) {
-	x = (AB.x*t + a.x);
-	y = (AB.y*t + a.y);
-	if ((int)(ABS_GRAPHLIB(x*(midW))) > midW-1 || (int)(ABS_GRAPHLIB(y*(midH))) > midH-1) break;
+        x = (AB.x*t + a.x);
+        y = (AB.y*t + a.y);
+        if ((int)(ABS_GRAPHLIB(x*(midW))) > midW-1 || (int)(ABS_GRAPHLIB(y*(midH))) > midH-1) break;
 	pixels[(int)((midH)*(1 - y))][(int)((midW)*(1 + x))] = fd;
     }
 }
@@ -199,7 +178,7 @@ void PrintTriangle(char **pixels, short width, short height, int ax, int ay, int
    b.y = by;
    c.x = cx;
    c.y = cy;
-   
+
    float gA, gB, gC;
 
    short x, y;
@@ -209,8 +188,8 @@ void PrintTriangle(char **pixels, short width, short height, int ax, int ay, int
 	   gB = (a.x*((float)y - c.y) + (float)x*(c.y - a.y) + c.x*(a.y - (float)y))/(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y));
 	   gC = (a.x*(b.y - (float)y) + b.x*((float)y - a.y) + (float)x*(a.y - b.y))/(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y));
 
-	   if(gA >= 0 && gB >= 0 && gC >= 0)
-	       pixels[y+height/2][x+width/2] = fd;
+           if(gA >= 0 && gB >= 0 && gC >= 0)
+               pixels[y+height/2][x+width/2] = fd;
        }
    }
 }
@@ -221,9 +200,9 @@ void ClearDrawing(uint8_t ***pixels, short width, short height, const uint32_t f
    short i, j;
    for (i = 0; i < height; ++i) {
       for (j = 0; j < width; j++) {
-	  pixels[i][j][0] = fd;
-	  pixels[i][j][1] = fd;
-	  pixels[i][j][2] = fd;
+          pixels[i][j][0] = fd;
+          pixels[i][j][1] = fd;
+          pixels[i][j][2] = fd;
       }
    }
 }
@@ -242,10 +221,10 @@ void DrawLine(uint8_t ***pixels, short width, short height, int ax, int ay, int 
     for (double t = 0; t < 1; t+=0.01) {
 	double x = (AB.x*t + a.x);
 	double y = (AB.y*t + a.y);
-	if (ABS_GRAPHLIB(x*(width/2)) > width/2-1 || ABS_GRAPHLIB(y*(height/2)) > height/2-1) break;
-	pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][0] = fd>>(8*3);
-	pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][1] = fd>>(8*2);
-	pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][2] = fd>>(8*1);
+        if (ABS_GRAPHLIB(x*(width/2)) > width/2-1 || ABS_GRAPHLIB(y*(height/2)) > height/2-1) break;
+        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][0] = fd>>(8*3);
+        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][1] = fd>>(8*2);
+        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][2] = fd>>(8*1);
     }
 }
 
@@ -254,11 +233,11 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
    short i, j;
    for (i = -height/2; i < height/2; i++) {
       for (j = -width/2; j < width/2; j++) {
-	  if ((i-y)*(i-y) + (j-x)*(j-x) <= radius*radius) {
-	      pixels[i + height/2][j + width/2][0] |= fd>>(8*3);
-	      pixels[i + height/2][j + width/2][1] |= fd>>(8*2);
-	      pixels[i + height/2][j + width/2][2] |= fd>>(8*1);
-	  }
+          if ((i-y)*(i-y) + (j-x)*(j-x) <= radius*radius) {
+              pixels[i + height/2][j + width/2][0] |= fd>>(8*3);
+              pixels[i + height/2][j + width/2][1] |= fd>>(8*2);
+              pixels[i + height/2][j + width/2][2] |= fd>>(8*1);
+          }
       }
    }
 }
