@@ -11,8 +11,11 @@
 #    include "graph.h"
 #endif
 
-# define HEIGHT	(7*9)
-# define WIDTH	(7*16)
+# define HEIGHT	(9*9)
+# define WIDTH	(16*9)
+
+#define MESHOFFSET_X(M, px) (M.Offset.x + (M.grid*px))
+#define MESHOFFSET_Y(M, py) (M.Offset.y + (M.grid*py))
 
 typedef struct
 {
@@ -23,8 +26,8 @@ typedef struct
 	int x, y;
     } Offset;
     
-    int width;
-    int height;
+    int x;
+    int y;
 } Window;
 
 void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshgrid)
@@ -38,41 +41,71 @@ void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshg
 	fprintf(stdout, "WARNING: Grid < pixel size\n");
 	win->grid = 1;
     }
-    win->width = w/win->grid;
-    win->height = h/win->grid;
+    win->x = w/win->grid;
+    win->y = h/win->grid;
     win->Offset.x = ((int)((((float)w/(float)win->grid) - (w/win->grid))*win->grid/2));
     win->Offset.y = ((int)((((float)h/(float)win->grid) - (h/win->grid))*win->grid/2));
 }
 
-
+#if 1
 int main()
 {
-    // char **console = mem_alloc(HEIGHT, WIDTH);
     GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
     Window wind;
 
     for (int k = 0; k < 255; k++) {
-	ConsoleClear(console, WIDTH, HEIGHT, ' ');
+	// ConsoleClear(console, WIDTH, HEIGHT, ' ');
 	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT, '#');
 	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2+1, -HEIGHT/2+1, WIDTH-2, HEIGHT-3, ' ');
 	PrintCircle(console, WIDTH, HEIGHT, 0, 0, 17, '.');
 	
 	SetMeshGrid(&wind, WIDTH, HEIGHT, k+1);
-	for (int i = 0; i < wind.width; i++) {
-	    for (int j = 0; j < wind.height; j++) {
-		if ((((i-wind.width/2))*((i-wind.width/2)) + ((j-wind.height/2))*((j-wind.height/2)))*wind.grid*wind.grid <= 300)
-		PrintRectangle(console, WIDTH, HEIGHT, wind.grid*i + wind.Offset.x - WIDTH/2, wind.grid*j + wind.Offset.y - HEIGHT/2, wind.grid, wind.grid, '@');
+	for (int i = 0; i < wind.x; i++) {
+	    for (int j = 0; j < wind.y; j++) {
+		if ((((i-wind.x/2))*((i-wind.x/2)) + ((j-wind.y/2))*((j-wind.y/2)))*wind.grid*wind.grid <= 300)
+		PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i) - WIDTH/2, MESHOFFSET_Y(wind, j) - HEIGHT/2, wind.grid, wind.grid, '@');
 	    }
 	}
 
 	// PrintCircle(console, WIDTH, HEIGHT, 0, 0, 17, '.');
 	
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
-	// PrintConsole(console, WIDTH, HEIGHT);
 	usleep(100000);
-	printf("k = %d\n", k);
+	printf("k = %d     \n", k);
     }
-    // mem_free(console, HEIGHT);
+
     GRAPHLIB_FREE2D(console, HEIGHT);
     return 0;
 }
+
+#else
+int main()
+{
+    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    Window wind;
+
+    int k = 20;
+    int i = 0, j = 0;
+    
+    SetMeshGrid(&wind, WIDTH, HEIGHT, k);
+    
+    for (;;) {
+	if (++i >= wind.x) {
+	    i = 0;
+	    if (++j >= wind.y) j = 0;
+	}
+
+	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT, '#');
+	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2+1, -HEIGHT/2+1, WIDTH-2, HEIGHT-3, ' ');
+
+	PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i) - WIDTH/2, MESHOFFSET_Y(wind, j) - HEIGHT/2, wind.grid, wind.grid, '@');
+
+	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	usleep(30000);
+	printf("k = %d     \n", k);
+    }
+
+    GRAPHLIB_FREE2D(console, HEIGHT);
+    return 0;
+}
+#endif
