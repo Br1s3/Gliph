@@ -47,12 +47,12 @@ do                                                                             \
 
 typedef struct
 {
-   int x, y;
+    int x, y;
 }COORD;
 
 typedef struct
 {
-   float x, y;
+    float x, y;
 }COORDF;
 
 
@@ -77,42 +77,45 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 
 void PrintConsole(char **pixels, short width, short height)
 {
-   short i, j;
-   char pixels_1D[(width+1) * height];
-   for (i = 0; i < height; ++i) {
-      for (j = 0; j < width+1; ++j) {
-         if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
-         else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
-         else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
-      }
-   }
+    short i, j;
+    char pixels_1D[(width+1) * height];
+    for (i = 0; i < height; ++i) {
+	for (j = 0; j < width+1; ++j) {
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
+            if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
+            else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
+            else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
+	}
+    }
 
-   MOVETO_GRAPHLIB(0, 0);
-   puts(pixels_1D);
+    MOVETO_GRAPHLIB(0, 0);
+    puts(pixels_1D);
 }
 
 void PrintConsoleSpace(char **pixels, short width, short height)
 {
-   short i, j;
-   MOVETO_GRAPHLIB(0, 0);
-   for (i = 0; i < height; ++i) {
-       for (j = 0; j < width; ++j) {
-	   putchar(pixels[i][j]);
-	   putchar(' ');
-       }
-       putchar('\n');
-   }
+    short i, j;
+    MOVETO_GRAPHLIB(0, 0);
+    for (i = 0; i < height; ++i) {
+	for (j = 0; j < width; ++j) {
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
+	    putchar(pixels[i][j]);
+	    putchar(' ');
+	}
+	putchar('\n');
+    }
 }
 
 
 void ConsoleClear(char **pixels, short width, short height, const char clear)
 {
-   short i, j;
-   for (i = 0; i < height; ++i) {
-      for (j = 0; j < width; j++) {
-         pixels[i][j] = clear;
-      }
-   }
+    short i, j;
+    for (i = 0; i < height; ++i) {
+	for (j = 0; j < width; j++) {
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
+            pixels[i][j] = clear;
+	}
+    }
 }
 
 void PrintRectangle(char **pixels, short width, short height, int x, int y, int largeur, int hauteur, const char fd)
@@ -120,6 +123,7 @@ void PrintRectangle(char **pixels, short width, short height, int x, int y, int 
     short i, j;
     for (i = -height/2; i < height/2; i++) {
         for (j = -width/2; j < width/2; j++) {
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
             if (((j >= x) && (j < x+largeur)) && ((i >= y) && (i < y+hauteur)))
                 pixels[i+height/2][j+width/2] = fd;
         }
@@ -244,3 +248,15 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 
 # endif // GRAPHLIB_IMPLEMENTATION
 #endif // GRAPHLIB_H_INCLUED
+
+/***********************************
+TODO:
+- Use a static variable to test if &pixels[i][j] == NULL like:
+    // if (&pixels[i][j] == NULL) {
+	//     fprintf(stderr, "ERROR: Out of memorie\n");
+	//     exit(1);
+    // }
+- Stop starting with the center like (pixels[i + height/2][j + width/2] = fd)
+- Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
+in PrintLine() and DrawLine()
+***********************************/
