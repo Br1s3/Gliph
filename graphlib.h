@@ -121,11 +121,14 @@ void ConsoleClear(char **pixels, short width, short height, const char clear)
 void PrintRectangle(char **pixels, short width, short height, int x, int y, int largeur, int hauteur, const char fd)
 {
     short i, j;
-    for (i = -height/2; i < height/2; i++) {
-        for (j = -width/2; j < width/2; j++) {
+    // for (i = -height/2; i < height/2; i++) {
+    for (i = 0; i < height; i++) {
+        // for (j = -width/2; j < width/2; j++) {
+	for (j = 0; j < width; j++) {
 	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
             if (((j >= x) && (j < x+largeur)) && ((i >= y) && (i < y+hauteur)))
-                pixels[i+height/2][j+width/2] = fd;
+                // pixels[i+height/2][j+width/2] = fd;
+		pixels[i][j] = fd;
         }
     }
 }
@@ -158,10 +161,13 @@ void PrintLine(char **pixels, const short width, const short height, int ax, int
 void PrintCircle(char **pixels, short width, short height, int x, int y, int radius, const char fd)
 {
     short i, j;
-    for (i = -height/2; i < height/2; i++) {
-	for (j = -width/2; j < width/2; j++) {
+    // for (i = -height/2; i < height/2; i++) {
+    for (i = 0; i < height; i++) {
+	// for (j = -width/2; j < width/2; j++) {
+	for (j = 0; j < width; j++) {
 	    if ((i-y)*(i-y) + (j-x)*(j-x) <= radius*radius)
-		pixels[i + height/2][j + width/2] = fd;
+		// pixels[i + height/2][j + width/2] = fd;
+		pixels[i][j] = fd;
 	}
     }
 }
@@ -186,14 +192,17 @@ void PrintTriangle(char **pixels, short width, short height, int ax, int ay, int
    float gA, gB, gC;
 
    short x, y;
-   for (y = -height/2; y < height/2; y++) {
-       for (x = -width/2; x < width/2; x++) {
+   // for (y = -height/2; y < height/2; y++) {
+   for (y = 0; y < height; y++) {
+       // for (x = -width/2; x < width/2; x++) {
+       for (x = 0; x < width; x++) {
 	   gA = ((float)x*(b.y - c.y) + b.x*(c.y - (float)y) + c.x*((float)y - b.y))/(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y));
 	   gB = (a.x*((float)y - c.y) + (float)x*(c.y - a.y) + c.x*(a.y - (float)y))/(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y));
 	   gC = (a.x*(b.y - (float)y) + b.x*((float)y - a.y) + (float)x*(a.y - b.y))/(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y));
 
            if(gA >= 0 && gB >= 0 && gC >= 0)
-               pixels[y+height/2][x+width/2] = fd;
+               // pixels[y+height/2][x+width/2] = fd;
+               pixels[y][x] = fd;
        }
    }
 }

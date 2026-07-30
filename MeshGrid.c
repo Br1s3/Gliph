@@ -55,15 +55,15 @@ int main()
 
     for (int k = 0; k < 255; k++) {
 	// ConsoleClear(console, WIDTH, HEIGHT, ' ');
-	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT, '#');
-	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2+1, -HEIGHT/2+1, WIDTH-2, HEIGHT-3, ' ');
-	PrintCircle(console, WIDTH, HEIGHT, 0, 0, 17, '.');
+	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
+	PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+	PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 17, '.');
 	
 	SetMeshGrid(&wind, WIDTH, HEIGHT, k+1);
 	for (int i = 0; i < wind.x; i++) {
 	    for (int j = 0; j < wind.y; j++) {
 		if ((((i-wind.x/2))*((i-wind.x/2)) + ((j-wind.y/2))*((j-wind.y/2)))*wind.grid*wind.grid <= 300)
-		PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i) - WIDTH/2, MESHOFFSET_Y(wind, j) - HEIGHT/2, wind.grid, wind.grid, '@');
+		PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
 	    }
 	}
 

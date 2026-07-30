@@ -12,9 +12,10 @@
 #    include "graph.h"
 #endif
 
-# define HEIGHT	(7*9)
-# define WIDTH	(7*16)
-
+#define HEIGHT	(7*9)
+#define WIDTH	(7*16)
+#define XOFFSET(x) (x + WIDTH/2)
+#define YOFFSET(y) (y + HEIGHT/2)
 
 int main()
 {
@@ -34,9 +35,9 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, i, ay, bx, by, cx, cy, '#');
-	PrintTriangle(console, WIDTH, HEIGHT, i+1, ay-1, bx, by+1, cx-1, cy-1, '+');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(i), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(cx), YOFFSET(cy), '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(i+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
+	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
 	usleep(100000);
@@ -44,9 +45,9 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, ax, i, bx, by, cx, cy, '#');
-	PrintTriangle(console, WIDTH, HEIGHT, ax+1, i+1, bx, by+1, cx-1, cy-1, '+');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax)  , YOFFSET(i)  , XOFFSET(bx), YOFFSET(by)  , XOFFSET(cx)  , YOFFSET(cy), '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(i+1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
+	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
 	usleep(100000);
@@ -54,9 +55,9 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, ax, ay, i, by, cx, cy, '#');
-	PrintTriangle(console, WIDTH, HEIGHT, ax+1, ay-1, i, by+1, cx-1, cy-1, '+');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax)  , YOFFSET(ay)  , XOFFSET(i), YOFFSET(by)  , XOFFSET(cx)  , YOFFSET(cy), '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(i), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
+	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
 	usleep(100000);
@@ -64,10 +65,10 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, ax, ay, bx, i, cx, cy, '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax), YOFFSET(ay), XOFFSET(bx), YOFFSET(i), XOFFSET(cx), YOFFSET(cy), '#');
 	if (i != 19)
-	PrintTriangle(console, WIDTH, HEIGHT, ax+1, ay-1, bx, i+1, cx-1, cy-1, '+');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(i+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
+	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
 	usleep(100000);
@@ -75,9 +76,9 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, ax, ay, bx, by, i, cy, '#');
-	PrintTriangle(console, WIDTH, HEIGHT, ax+1, ay-1, bx, by+1, i-1, cy-1, '+');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(i), YOFFSET(cy), '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(i-1), YOFFSET(cy-1), '+');
+	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
 	usleep(100000);
@@ -85,8 +86,8 @@ int main()
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
-	PrintTriangle(console, WIDTH, HEIGHT, ax, ay, bx, by, cx, i, '#');
-	PrintTriangle(console, WIDTH, HEIGHT, ax+1, ay-1, bx, by+1, cx-1, i-1, '+');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(cx), YOFFSET(i), '#');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(i-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);

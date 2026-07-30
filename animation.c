@@ -24,10 +24,10 @@ int main()
 	if (i<0) j = -i;
 	ConsoleClear(console, WIDTH, HEIGHT, ' ');
 
-	PrintRectangle(console, WIDTH, HEIGHT, -i*2, i, 10, 5, '#');
-	PrintRectangle(console, WIDTH, HEIGHT, -i*2+1, i+1, 8, 3, '.');
-	PrintCircle(console, WIDTH, HEIGHT, i, i, j, '#');
-	PrintCircle(console, WIDTH, HEIGHT, i, i, j-1, '.');
+	PrintRectangle(console, WIDTH, HEIGHT, -i*2 + WIDTH/2, i + HEIGHT/2, 10, 5, '#');
+	PrintRectangle(console, WIDTH, HEIGHT, -i*2+1 + WIDTH/2, i+1 + HEIGHT/2, 8, 3, '.');
+	PrintCircle(console, WIDTH, HEIGHT, i + WIDTH/2, i + HEIGHT/2, j, '#');
+	PrintCircle(console, WIDTH, HEIGHT, i + WIDTH/2, i + HEIGHT/2, j-1, '.');
 
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);

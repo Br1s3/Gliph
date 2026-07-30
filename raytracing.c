@@ -76,9 +76,9 @@ int main()
 	    PrintLine(console, WIDTH, HEIGHT, light.pos.x, light.pos.y, light.pos.x + cos(j)*(len), light.pos.y + sin(j)*(len), '.');
 	}
 	
-	PrintCircle(console, WIDTH, HEIGHT, light.pos.x, light.pos.y, light.radius, light.color);	
-	PrintCircle(console, WIDTH, HEIGHT, shadow1.pos.x, shadow1.pos.y, shadow1.radius, shadow1.color);
-	PrintCircle(console, WIDTH, HEIGHT, shadow2.pos.x, shadow2.pos.y, shadow2.radius, shadow2.color);
+	PrintCircle(console, WIDTH, HEIGHT, light.pos.x + WIDTH/2, light.pos.y + HEIGHT/2, light.radius, light.color);
+	PrintCircle(console, WIDTH, HEIGHT, shadow1.pos.x + WIDTH/2, shadow1.pos.y + HEIGHT/2, shadow1.radius, shadow1.color);
+	PrintCircle(console, WIDTH, HEIGHT, shadow2.pos.x + WIDTH/2, shadow2.pos.y + HEIGHT/2, shadow2.radius, shadow2.color);
 
 	// print_cons(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
