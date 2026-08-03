@@ -9,6 +9,7 @@ $ make header
 $ ./animation 
 $ ./raytracing 
 $ ./triangle 
+$ ./MeshGrid
 $ ./3DSquare
 ```
 
@@ -42,3 +43,4 @@ https://www.desmos.com/calculator/z1dthkvot0
 
 ## TODO:
 - Correct difference between graphlib.h and graph.h/c with valgrind
+- Update the graph.c and graph.h files
