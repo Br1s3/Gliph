@@ -81,7 +81,7 @@ void PrintConsole(char **pixels, short width, short height)
     char pixels_1D[(width+1) * height];
     for (i = 0; i < height; ++i) {
 	for (j = 0; j < width+1; ++j) {
-	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
             if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
             else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
             else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
@@ -112,7 +112,7 @@ void ConsoleClear(char **pixels, short width, short height, const char clear)
     short i, j;
     for (i = 0; i < height; ++i) {
 	for (j = 0; j < width; j++) {
-	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
             pixels[i][j] = clear;
 	}
     }
@@ -123,7 +123,7 @@ void PrintRectangle(char **pixels, short width, short height, int x, int y, int 
     short i, j;
     for (i = 0; i < height; i++) {
 	for (j = 0; j < width; j++) {
-	    // TODO: Use a static variable to test if &pixels[i][j] == NULL 
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
             if (((j >= x) && (j < x+largeur)) && ((i >= y) && (i < y+hauteur)))
 		pixels[i][j] = fd;
         }
