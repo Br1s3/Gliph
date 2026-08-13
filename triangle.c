@@ -20,7 +20,7 @@
 int main()
 {
     // char ** console = mem_alloc(HEIGHT, WIDTH);
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
     
     ConsoleClear(console, WIDTH, HEIGHT, '.');
 
@@ -39,17 +39,19 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(i+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
     for (int i = -20; i < 20; i++) {
 	ConsoleClear(console, WIDTH, HEIGHT, '.');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax)  , YOFFSET(i)  , XOFFSET(bx), YOFFSET(by)  , XOFFSET(cx)  , YOFFSET(cy), '#');
-	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(i+1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
+	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(i), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
 	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -59,7 +61,8 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(i), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -70,7 +73,8 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(i+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -80,7 +84,8 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(i-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -90,7 +95,8 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(i-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
 	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 

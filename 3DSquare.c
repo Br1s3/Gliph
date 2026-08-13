@@ -115,7 +115,7 @@ int main()
     Square_Connexion_init(&Sc);
     
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;
@@ -148,7 +148,7 @@ int main()
 	}
 
 	PrintConsole(console, WIDTH, HEIGHT);
-	// print_cons_comp(console, WIDTH, HEIGHT); // No need here because formula self compense the width
+	// PrintConsolePadded(console, WIDTH, HEIGHT); // No need here because formula self compense the width
 
 	usleep(dt*1000000);
     }

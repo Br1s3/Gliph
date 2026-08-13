@@ -6,7 +6,7 @@
 
 int main()
 {
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
     PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
     PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
     PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 5, '@');

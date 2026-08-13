@@ -63,7 +63,7 @@ int main()
     shadow2.radius = 10;
 
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
 
     for (double k = 0; k < 5*M_PI; k+=0.01) {
 	ConsoleClear(console, WIDTH, HEIGHT, ' ');
@@ -80,8 +80,7 @@ int main()
 	PrintCircle(console, WIDTH, HEIGHT, shadow1.pos.x + WIDTH/2, shadow1.pos.y + HEIGHT/2, shadow1.radius, shadow1.color);
 	PrintCircle(console, WIDTH, HEIGHT, shadow2.pos.x + WIDTH/2, shadow2.pos.y + HEIGHT/2, shadow2.radius, shadow2.color);
 
-	// print_cons(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(5000);
     }
     

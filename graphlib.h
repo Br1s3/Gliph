@@ -60,7 +60,7 @@
 #define DEC_GRAPHLIB(x, y) (((x)*(width+1)) + (y))
 #define ABS_GRAPHLIB(x) ((x) < 0 ? (-x) : (x))
 
-#define GRAPHLIB_MALLOC2D(type, name, H, W)               \
+#define GRAPHLIB_MALLOC2D(type, name, W, H)               \
 type **name = (type **)malloc(sizeof(type *) * ((H)+1));  \
 TESTMALLOC(name);                                         \
 do {                                                      \
@@ -108,6 +108,7 @@ void PrintTriangle(char **pixels, short width, short height, int ax, int ay, int
 
 void PrintConsole(char **pixels, short width, short height);
 void PrintConsoleSpace(char **pixels, short width, short height);
+void PrintConsolePadded(char **pixels, short width, short height);
 
 
 void ClearDrawing(uint8_t ***pixels, short width, short height, const uint32_t fd);
@@ -149,6 +150,19 @@ void PrintConsoleSpace(char **pixels, short width, short height)
     }
 }
 
+void PrintConsolePadded(char **pixels, short width, short height)
+{
+    short i, j;
+    MOVETO_GRAPHLIB(0, 0);
+    for (i = 0; i < height; ++i) {
+	for (j = 0; j < width; ++j) {
+	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
+	    putchar(pixels[i][j]);
+	    putchar(pixels[i][j]);
+	}
+	putchar('\n');
+    }
+}
 
 void ConsoleClear(char **pixels, short width, short height, const char clear)
 {

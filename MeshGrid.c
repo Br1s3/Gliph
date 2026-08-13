@@ -50,7 +50,7 @@ void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshg
 #if 1
 int main()
 {
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
     Window wind;
 
     for (int k = 0; k < 255; k++) {
@@ -69,7 +69,7 @@ int main()
 
 	// PrintCircle(console, WIDTH, HEIGHT, 0, 0, 17, '.');
 	
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
 	printf("k = %d     \n", k);
     }
@@ -81,7 +81,7 @@ int main()
 #else
 int main()
 {
-    GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
+    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
     Window wind;
 
     int k = 20;
@@ -95,12 +95,12 @@ int main()
 	    if (++j >= wind.y) j = 0;
 	}
 
-	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2, -HEIGHT/2, WIDTH, HEIGHT, '#');
-	PrintRectangle(console, WIDTH, HEIGHT, -WIDTH/2+1, -HEIGHT/2+1, WIDTH-2, HEIGHT-3, ' ');
+	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
+	PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
 
-	PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i) - WIDTH/2, MESHOFFSET_Y(wind, j) - HEIGHT/2, wind.grid, wind.grid, '@');
+	PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
 
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(30000);
 	printf("k = %d     \n", k);
     }
