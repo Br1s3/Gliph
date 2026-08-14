@@ -3,8 +3,5 @@ animation
 raytracing 
 triangle
 3DSquare
-graph.o
-libgraph.a
-libgraph.o
-libgraph.so
 BasicExemple
+MeshGrid2

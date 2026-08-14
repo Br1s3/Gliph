@@ -46,24 +46,24 @@ int main()
     GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
     Window wind;
 
-    for (int k = 0; k < 255; k++) {
-	// ConsoleClear(console, WIDTH, HEIGHT, ' ');
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
-	PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
-	PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 17, '.');
-	
-	SetMeshGrid(&wind, WIDTH, HEIGHT, k+1);
-	for (int i = 0; i < wind.x; i++) {
-	    for (int j = 0; j < wind.y; j++) {
-		if ((((i-wind.x/2))*((i-wind.x/2)) + ((j-wind.y/2))*((j-wind.y/2)))*wind.grid*wind.grid <= 300)
-		PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
-	    }
+    int k = 20;
+    int i = 0, j = 0;
+    
+    SetMeshGrid(&wind, WIDTH, HEIGHT, k);
+    
+    for (;;) {
+	if (++i >= wind.x) {
+	    i = 0;
+	    if (++j >= wind.y) j = 0;
 	}
 
-	// PrintCircle(console, WIDTH, HEIGHT, 0, 0, 17, '.');
-	
+	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
+	PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+
+	PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
+
 	PrintConsolePadded(console, WIDTH, HEIGHT);
-	usleep(100000);
+	usleep(30000);
 	printf("k = %d     \n", k);
     }
 

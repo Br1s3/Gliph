@@ -2,14 +2,8 @@
 // #include <raylib.h>
 #include <math.h>
 
-#if defined(PROG1)
-#    define GRAPHLIB_IMPLEMENTATION
-#    include "graphlib.h"
-#elif defined(PROG2)
-#    include "graphlib.h"
-#else
-#    include "graph.h"
-#endif
+#define GLIPH_IMPLEMENTATION
+#include "gliph.h"
 
 #define FPS 60
 #define WIDTH 120
@@ -115,7 +109,7 @@ int main()
     Square_Connexion_init(&Sc);
     
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;
@@ -153,6 +147,6 @@ int main()
 	usleep(dt*1000000);
     }
     // mem_free(console, HEIGHT);
-    GRAPHLIB_FREE2D(console, HEIGHT);
+    GLIPH_FREE2D(console, HEIGHT);
     return 0;    
 }

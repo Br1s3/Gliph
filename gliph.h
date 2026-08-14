@@ -45,8 +45,8 @@
  *
  */
 
-#ifndef GRAPHLIB_H_INCLUED
-#define GRAPHLIB_H_INCLUED
+#ifndef GLIPH_H_INCLUED
+#define GLIPH_H_INCLUED
 #include <stdio.h>  // Used for: fprintf(), printf(), putchar()
 #include <stdlib.h> // Used for: exit(), malloc(), free()
 #include <string.h> // Used for: strerror()
@@ -56,11 +56,11 @@
 
 // #define max(x, y) ((x)<(y) ? (y) : (x))
 // #define min(x, y) ((x)>(y) ? (y) : (x))
-#define MOVETO_GRAPHLIB(y, x) printf("\033[%d;%dH", (y), (x))
-#define DEC_GRAPHLIB(x, y) (((x)*(width+1)) + (y))
-#define ABS_GRAPHLIB(x) ((x) < 0 ? (-x) : (x))
+#define MOVETO_GLIPH(y, x) printf("\033[%d;%dH", (y), (x))
+#define DEC_GLIPH(x, y) (((x)*(width+1)) + (y))
+#define ABS_GLIPH(x) ((x) < 0 ? (-x) : (x))
 
-#define GRAPHLIB_MALLOC2D(type, name, W, H)               \
+#define GLIPH_MALLOC2D(type, name, W, H)               \
 type **name = (type **)malloc(sizeof(type *) * ((H)+1));  \
 TESTMALLOC(name);                                         \
 do {                                                      \
@@ -71,7 +71,7 @@ do {                                                      \
     name[(H)] = NULL;                                     \
 } while (0)
 
-#define GRAPHLIB_FREE2D(name, H)                                                 \
+#define GLIPH_FREE2D(name, H)                                                 \
 if (name == NULL) fprintf(stdout, "WARNING: %s is NULL, %d\n", #name, __LINE__); \
 do {                                                                             \
     for (ssize_t i = 0; i < (H); i++) free(name[i]);                             \
@@ -117,7 +117,7 @@ void DrawLine(uint8_t ***pixels, short width, short height, int ax, int ay, int 
 void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int radius, const uint32_t fd);
 
 
-# ifdef GRAPHLIB_IMPLEMENTATION
+# ifdef GLIPH_IMPLEMENTATION
 
 void PrintConsole(char **pixels, short width, short height)
 {
@@ -126,20 +126,20 @@ void PrintConsole(char **pixels, short width, short height)
     for (i = 0; i < height; ++i) {
 	for (j = 0; j < width+1; ++j) {
 	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
-            if      (j < width)     pixels_1D[DEC_GRAPHLIB(i, j)] = pixels[i][j];
-            else if (i < height-1)  pixels_1D[DEC_GRAPHLIB(i, j)] = '\n';
-            else                    pixels_1D[DEC_GRAPHLIB(i, j)] = '\0';
+            if      (j < width)     pixels_1D[DEC_GLIPH(i, j)] = pixels[i][j];
+            else if (i < height-1)  pixels_1D[DEC_GLIPH(i, j)] = '\n';
+            else                    pixels_1D[DEC_GLIPH(i, j)] = '\0';
 	}
     }
 
-    MOVETO_GRAPHLIB(0, 0);
+    MOVETO_GLIPH(0, 0);
     puts(pixels_1D);
 }
 
 void PrintConsoleSpace(char **pixels, short width, short height)
 {
     short i, j;
-    MOVETO_GRAPHLIB(0, 0);
+    MOVETO_GLIPH(0, 0);
     for (i = 0; i < height; ++i) {
 	for (j = 0; j < width; ++j) {
 	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
@@ -153,7 +153,7 @@ void PrintConsoleSpace(char **pixels, short width, short height)
 void PrintConsolePadded(char **pixels, short width, short height)
 {
     short i, j;
-    MOVETO_GRAPHLIB(0, 0);
+    MOVETO_GLIPH(0, 0);
     for (i = 0; i < height; ++i) {
 	for (j = 0; j < width; ++j) {
 	    // TODO: Use a static variable to test if &pixels[i][j] == NULL
@@ -206,7 +206,7 @@ void PrintLine(char **pixels, const short width, const short height, int ax, int
     for (double t = 0; t < 1; t+=0.01) {
         x = (AB.x*t + a.x);
         y = (AB.y*t + a.y);
-        if ((int)(ABS_GRAPHLIB(x*(midW))) > midW-1 || (int)(ABS_GRAPHLIB(y*(midH))) > midH-1) break;
+        if ((int)(ABS_GLIPH(x*(midW))) > midW-1 || (int)(ABS_GLIPH(y*(midH))) > midH-1) break;
 	pixels[(int)((midH)*(1 - y))][(int)((midW)*(1 + x))] = fd;
     }
 }
@@ -282,7 +282,7 @@ void DrawLine(uint8_t ***pixels, short width, short height, int ax, int ay, int 
     for (double t = 0; t < 1; t+=0.01) {
 	double x = (AB.x*t + a.x);
 	double y = (AB.y*t + a.y);
-        if (ABS_GRAPHLIB(x*(width/2)) > width/2-1 || ABS_GRAPHLIB(y*(height/2)) > height/2-1) break;
+        if (ABS_GLIPH(x*(width/2)) > width/2-1 || ABS_GLIPH(y*(height/2)) > height/2-1) break;
         pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][0] = fd>>(8*3);
         pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][1] = fd>>(8*2);
         pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][2] = fd>>(8*1);
@@ -303,8 +303,8 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
     }
 }
 
-# endif // GRAPHLIB_IMPLEMENTATION
-#endif // GRAPHLIB_H_INCLUED
+# endif // GLIPH_IMPLEMENTATION
+#endif // GLIPH_H_INCLUED
 
 /***********************************
 TODO:

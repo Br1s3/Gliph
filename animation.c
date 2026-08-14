@@ -2,14 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#if defined(PROG1)
-#    define GRAPHLIB_IMPLEMENTATION
-#    include "graphlib.h"
-#elif defined(PROG2)
-#    include "graphlib.h"
-#else
-#    include "graph.h"
-#endif
+#define GLIPH_IMPLEMENTATION
+#include "gliph.h"
 
 # define HEIGHT	(10*9)
 # define WIDTH	(10*16)
@@ -17,7 +11,7 @@
 int main()
 {
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GRAPHLIB_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
     
     int i = -45, j = 1;
     for (i = -45; i < 45; i++, j++) {
@@ -37,6 +31,6 @@ int main()
     puts("tout c'est bien passé");
 
     // mem_free(console, HEIGHT);
-    GRAPHLIB_FREE2D(console, HEIGHT);
+    GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }

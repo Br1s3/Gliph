@@ -1,24 +1,61 @@
 # Graphlib
 
-Short and simple static/shared library to draw shapes
+Short and simple library to draw shapes
 
 ## Ready to start
 
 ```console
-$ make header
-$ ./animation 
-$ ./raytracing 
-$ ./triangle 
-$ ./MeshGrid
+$ make all
+$ ./BasicExemple 
+$ ./animation
+$ ./raytracing
+$ ./triangle
 $ ./3DSquare
+$ ./MeshGrid
+$ ./MeshGrid2
 ```
 
-Here is 3 ways to compile a same program:
+## Exemple of uses with the BasicExmple program:
+```c
+#define GLIPH_IMPLEMENTATION
+#include "gliph.h"
 
-> - make header will compile only the programs, everything is in the header file libgraph.h
-> - make obj will compile with libgraph object file and use the header file libgraph.h
-> - make static will create a static librairy of graph and compile all the other programs with libgraph.a
-> - make dynamic will create a dynamic librairy of graph and compile all the other programs with libgraph.so
+#define HEIGHT (9*2)
+#define WIDTH (16*2)
+
+int main()
+{
+    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
+    PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+    PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 5, '@');
+    PrintConsoleSpace(console, WIDTH, HEIGHT);
+    GLIPH_FREE2D(console, HEIGHT);
+    return 0;
+}
+```
+
+_The Result:_
+```
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                             #
+#                                                             #
+#                                                             #
+#                               @                             #
+#                         @ @ @ @ @ @ @                       #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                     @ @ @ @ @ @ @ @ @ @ @                   #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                       @ @ @ @ @ @ @ @ @                     #
+#                         @ @ @ @ @ @ @                       #
+#                               @                             #
+#                                                             #
+#                                                             #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+```
 
 All programs are exemples of use of the library.
 
@@ -28,7 +65,7 @@ _Ray tracing_
 
 [![Ray Tracing](./picture/Raytracing.png)](/picture)
 
-_Square in 3 Dimension_
+_Square in 3 Dimensions_
 
 [![Square in 3 Dimension](./picture/3DSquare.gif)](/picture)
 
