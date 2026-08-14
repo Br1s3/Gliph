@@ -310,8 +310,8 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 TODO:
 - Use a static variable to test if &pixels[i][j] == NULL like:
     // if (&pixels[i][j] == NULL) {
-	//     fprintf(stderr, "ERROR: Out of memorie\n");
-	//     exit(1);
+        //     fprintf(stderr, "ERROR: Out of memorie\n");
+        //     exit(1);
     // }
 - Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
 in PrintLine() and DrawLine()

@@ -79,5 +79,14 @@ _How to draw a line:_
 https://www.desmos.com/calculator/z1dthkvot0
 
 ## TODO:
-- Correct difference between graphlib.h and graph.h/c with valgrind
-- Update the graph.c and graph.h files
+- [ ] Use a static variable to test if &pixels[i][j] == NULL like:
+```c
+if (&pixels[i][j] == NULL) {
+    fprintf(stderr, "ERROR: Out of memorie\n");
+    exit(1);
+}
+```
+- [ ] Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
+in PrintLine() and DrawLine()
+- [ ] Add DrawRectangle()
+
