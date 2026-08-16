@@ -1,6 +1,6 @@
-# Graphlib
+# gliph.h - Graphical library
 
-Short and simple library to draw shapes
+This library is useful for drawing or console printing some shape.
 
 ## Ready to start
 
