@@ -5,14 +5,14 @@ Short and simple library to draw shapes
 ## Ready to start
 
 ```console
-$ make all
-$ ./BasicExemple 
-$ ./animation
-$ ./raytracing
-$ ./triangle
-$ ./3DSquare
-$ ./MeshGrid
-$ ./MeshGrid2
+make all
+./BasicExemple
+./animation
+./raytracing
+./triangle
+./3DSquare
+./MeshGrid
+./MeshGrid2
 ```
 
 ## Exemple of uses with the BasicExmple program:

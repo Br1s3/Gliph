@@ -125,7 +125,7 @@ int main()
 	//     COORD3DF buf = S.p[i];
 	//     XZ_rotation(&buf, angle);
 	//     Z_translation(&buf, dz);
-	//     cons_rect(console, WIDTH, HEIGHT, convert(buf).x*(WIDTH/2) - SIZESQUARE/2, convert(buf).y*(HEIGHT/2) - SIZESQUARE/2, SIZESQUARE, SIZESQUARE, '@');
+	//     PrintRectangle(console, WIDTH, HEIGHT, convert(buf).x*(WIDTH/2) + WIDTH/2, convert(buf).y*(HEIGHT/2) + HEIGHT/2, SIZESQUARE, SIZESQUARE, '@');
 	// }
 
 	for (int i = 0; i < 6; i++) {
