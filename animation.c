@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 #define GLIPH_PADDING
-// #define GLIPH_CHARPADDED
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
@@ -31,7 +30,5 @@ int main()
     }
     puts("tout c'est bien passé");
 
-    // mem_free(console, HEIGHT);
-    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }
