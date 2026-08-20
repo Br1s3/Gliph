@@ -225,7 +225,6 @@ void PrintRectangle(Screen pixels, int x, int y, int width, int height, const ch
     }
 }
 
-
 void PrintLine(Screen pixels, int ax, int ay, int bx, int by, const char fd)
 {
     COORDF a, b, AB;
@@ -259,7 +258,6 @@ void PrintLine(Screen pixels, int ax, int ay, int bx, int by, const char fd)
     }
 }
 
-
 void PrintCircle(Screen pixels, int x, int y, int radius, const char fd)
 {
     short i, j;
@@ -274,6 +272,20 @@ void PrintCircle(Screen pixels, int x, int y, int radius, const char fd)
 	}
     }
 }
+
+// #include <math.h>
+// void PrintDisk(char *pixels, short width, short height, int x, int y, int radius, const char fd)
+// {
+//     /* O(n) avec n = 8*radius */
+//     for (double t = 0; t <= 2.f*M_PI; t+=M_PI/(double)(4*radius)) {
+// 	int XX = (int)((double)radius*cos(t)) + x;
+// 	int YY = (int)((double)radius*sin(t)) + y;
+
+// 	if (XX < 0 || XX > width-1 || YY < 0 || YY > height-1) continue;
+// 	pixels[YY][XX] = fd;
+//     }
+// }
+
 
 void PrintTriangle(Screen pixels, int ax, int ay, int bx, int by, int cx, int cy, const char fd)
 {
