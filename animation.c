@@ -11,7 +11,6 @@
 
 int main()
 {
-    // char **console = mem_alloc(HEIGHT, WIDTH);
     GLIPH_ALLOC(console, WIDTH, HEIGHT);
     
     int i = -45, j = 1;
