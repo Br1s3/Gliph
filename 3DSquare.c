@@ -109,7 +109,7 @@ int main()
     Square_Connexion_init(&Sc);
     
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;

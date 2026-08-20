@@ -57,8 +57,7 @@ int main()
     shadow2.color = ' ';
     shadow2.radius = 10;
 
-    // char **console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
 
     for (double k = 0; k < 5*M_PI; k+=0.01) {
 	ConsoleClear(console, ' ');
@@ -78,10 +77,6 @@ int main()
 	PrintConsole(console);
 	// usleep(5000);
     }
-    
-
-    // mem_free(console, HEIGHT);
-    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }
 

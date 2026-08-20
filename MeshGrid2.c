@@ -44,7 +44,7 @@ void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshg
 
 int main()
 {
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
     Window wind;
 
     int k = 20;
@@ -68,6 +68,5 @@ int main()
 	printf("k = %d     \n", k);
     }
 
-    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }

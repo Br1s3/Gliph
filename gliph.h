@@ -13,7 +13,7 @@
  *
  *     int main()
  *     {
- *         GLIPH_ALLOC(console, WIDTH, HEIGHT);
+ *         GLIPH_INIT(console, WIDTH, HEIGHT);
  *         ConsoleClear(console, ' ');
  *         PrintRectangle(console, 0, 0, WIDTH, HEIGHT, '#');
  *         PrintRectangle(console, 1, 1, WIDTH-2, HEIGHT-2, ' ');
@@ -116,19 +116,18 @@ typedef struct
     const int h;
 } Screen;
 
-#ifdef GLIPH_DYNAMIC
-# define GLIPH_ALLOC(name, W, H)                                  \
+#define GLIPH_ALLOC(name, W, H)                                    \
     char *__screen1d = (char *)malloc(sizeof(char) * ((W+1)*H+1)); \
-    TESTALLOC(__screen1d);                                        \
-    Screen name = {._1d=__screen1d, .w=W, .h=H};                  \
-    do {                                                          \
-        for (int i = 0; i < H; i++) {                             \
-            ((char (*)[W+1])name._1d)[i][W] = '\n';               \
-        }                                                         \
+    TESTALLOC(__screen1d);                                         \
+    Screen name = {._1d=__screen1d, .w=W, .h=H};                   \
+    do {                                                           \
+        for (int i = 0; i < H; i++) {                              \
+            ((char (*)[W+1])name._1d)[i][W] = '\n';                \
+        }                                                          \
     } while (0)
-# define GLIPH_FREE(name) free(name._1d)
-#else
-# define GLIPH_ALLOC(name, W, H)                      \
+#define GLIPH_FREE(name) free(name._1d)
+
+#define GLIPH_INIT(name, W, H)                        \
     char __screen1d[H*(W+1)+1];                       \
     Screen name = {._1d=__screen1d, .w=W, .h=H};      \
     do {                                              \
@@ -136,8 +135,6 @@ typedef struct
             ((char (*)[W+1])name._1d)[i][W] = '\n';   \
         }                                             \
     } while (0)
-#endif
-
 
 
 void ConsoleClear(Screen pixels, const char clear);

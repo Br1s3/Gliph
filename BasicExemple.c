@@ -6,7 +6,7 @@
 
 int main()
 {
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
     ConsoleClear(console, ' ');
     PrintRectangle(console, 0, 0, WIDTH, HEIGHT, '#');
     PrintRectangle(console, 1, 1, WIDTH-2, HEIGHT-2, ' ');

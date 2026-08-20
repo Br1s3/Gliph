@@ -11,7 +11,7 @@
 
 int main()
 {
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
     
     int i = -45, j = 1;
     for (i = -45; i < 45; i++, j++) {

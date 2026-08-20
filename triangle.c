@@ -13,8 +13,7 @@
 
 int main()
 {
-    // char ** console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_ALLOC(console, WIDTH, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
     
     ConsoleClear(console, '.');
 
@@ -82,7 +81,5 @@ int main()
 	usleep(100000);
     }
 
-    // mem_free(console, HEIGHT);
-    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }
