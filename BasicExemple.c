@@ -1,3 +1,4 @@
+#define GLIPH_SPACEPADDED
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 

@@ -17,6 +17,7 @@ make all
 
 ## Exemple of uses with the BasicExmple program:
 ```c
+#define GLIPH_SPACEPADDED
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
@@ -25,12 +26,12 @@ make all
 
 int main()
 {
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
-    PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
-    PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
-    PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 5, '@');
-    PrintConsoleSpace(console, WIDTH, HEIGHT);
-    GLIPH_FREE2D(console, HEIGHT);
+    GLIPH_INIT(console, WIDTH, HEIGHT);
+    ConsoleClear(console, ' ');
+    PrintRectangle(console, 0, 0, WIDTH, HEIGHT, '#');
+    PrintRectangle(console, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+    PrintCircle(console, WIDTH/2, HEIGHT/2, 5, '@');
+    PrintConsole(console);
     return 0;
 }
 ```
@@ -79,13 +80,15 @@ _How to draw a line:_
 https://www.desmos.com/calculator/z1dthkvot0
 
 ## TODO:
-- [ ] Use a static variable to test if &pixels[i][j] == NULL like:
-```c
-if (&pixels[i][j] == NULL) {
-    fprintf(stderr, "ERROR: Out of memorie\n");
-    exit(1);
-}
-```
+TODO:
+- Modify t step to verify this condition: (step >= 1/sqrt((by-ay)² + (bx-ax)²))
+  - [ ] PrintLine()
+  - [ ] DrawLine()
+- [ ] Add DrawRectangle()
+- [ ] Line: 230:
+    Change PrintDisk name by PrintCercle and vice vera
+
+
 - [ ] Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
 in PrintLine() and DrawLine()
 - [ ] Add DrawRectangle()

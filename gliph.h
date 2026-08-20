@@ -246,7 +246,6 @@ void PrintLine(Screen pixels, int ax, int ay, int bx, int by, const char fd)
 #  else
         x = (AB.x*t + a.x);
 #  endif
-        x = (AB.x*t + a.x)*2;
         y = (AB.y*t + a.y);
         if ((ABS_GLIPH(x*midW)) > midW-1 || (ABS_GLIPH(y*midH)) > midH-1) break;
 	Yaxe = (midH)*(1 - y);
@@ -382,13 +381,8 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
 
 /***********************************
 TODO:
-- Use a static variable to test if &pixels[i][j] == NULL like:
-    // if (&pixels[i][j] == NULL) {
-        //     fprintf(stderr, "ERROR: Out of memorie\n");
-        //     exit(1);
-    // }
-- Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
-in PrintLine() and DrawLine()
+- in PrintLine() and DrawLine():
+    - Modify t step to verify this condition: (step >= 1/sqrt((by-ay)² + (bx-ax)²))
 - Add DrawRectangle()
 - Line: 230:
     Change PrintDisk name by PrintCercle and vice vera
