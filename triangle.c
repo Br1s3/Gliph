@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define GLIPH_PADDING
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
@@ -13,7 +14,7 @@
 int main()
 {
     // char ** console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_ALLOC(char, console, WIDTH, HEIGHT);
     
     ConsoleClear(console, WIDTH, HEIGHT, '.');
 
@@ -31,9 +32,9 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(i), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(cx), YOFFSET(cy), '#');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(i+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
 	// PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -42,9 +43,9 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax)  , YOFFSET(i)  , XOFFSET(bx), YOFFSET(by)  , XOFFSET(cx)  , YOFFSET(cy), '#');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(i), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
-	PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -53,9 +54,9 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax)  , YOFFSET(ay)  , XOFFSET(i), YOFFSET(by)  , XOFFSET(cx)  , YOFFSET(cy), '#');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(i), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
 	// PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -65,9 +66,9 @@ int main()
 	if (i != 19)
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(i+1), XOFFSET(cx-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
 	// PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -76,9 +77,9 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(i), YOFFSET(cy), '#');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(i-1), YOFFSET(cy-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, XOFFSET(0), YOFFSET(0), 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
-	// PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
+	// PrintConsoleSpace(console._1d, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
@@ -87,13 +88,13 @@ int main()
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax), YOFFSET(ay), XOFFSET(bx), YOFFSET(by), XOFFSET(cx), YOFFSET(i), '#');
 	PrintTriangle(console, WIDTH, HEIGHT, XOFFSET(ax+1), YOFFSET(ay-1), XOFFSET(bx), YOFFSET(by+1), XOFFSET(cx-1), YOFFSET(i-1), '+');
 	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, 1, 1, '*');
-	// PrintConsole(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
 	// PrintConsoleSpace(console, WIDTH, HEIGHT);
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	// PrintConsolePadded(console, WIDTH, HEIGHT);
 	usleep(100000);
     }
 
     // mem_free(console, HEIGHT);
-    GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }

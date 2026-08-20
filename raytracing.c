@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-# include <math.h>
+#include <math.h>
 
+#define GLIPH_PADDING
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
 # define HEIGHT	(7*9)
-# define WIDTH	(10*16)
+# define WIDTH	(10*16*2)
 
 typedef struct {
     int x;
@@ -47,17 +48,16 @@ int main()
     Corp shadow1;
     shadow1.pos.x = 25;
     shadow1.pos.y = 0;
-    shadow1.color = ' ';
+    shadow1.color = '%';
     shadow1.radius = 10;
 
     Corp shadow2;
     shadow2.pos.x = -25;
     shadow2.pos.y = 0;
-    shadow2.color = ' ';
+    shadow2.color = '$';
     shadow2.radius = 10;
 
-    // char **console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_ALLOC(char, console, WIDTH, HEIGHT);
 
     for (double k = 0; k < 5*M_PI; k+=0.01) {
 	ConsoleClear(console, WIDTH, HEIGHT, ' ');
@@ -65,8 +65,8 @@ int main()
 
 	for (double j = 0; j < 2*M_PI; j+=M_PI/50) {
 	    int len = raytracing(light, light.brighness, cos(j), sin(j), shadow1);
-	    if(raytracing(light, 1000, cos(j), sin(j), shadow2) < len)
-	        len = raytracing(light, light.brighness, cos(j), sin(j), shadow2);
+	    // if(raytracing(light, 1000, cos(j), sin(j), shadow2) < len)
+	    //     len = raytracing(light, light.brighness, cos(j), sin(j), shadow2);
 	    PrintLine(console, WIDTH, HEIGHT, light.pos.x, light.pos.y, light.pos.x + cos(j)*(len), light.pos.y + sin(j)*(len), '.');
 	}
 	
@@ -74,13 +74,15 @@ int main()
 	PrintCircle(console, WIDTH, HEIGHT, shadow1.pos.x + WIDTH/2, shadow1.pos.y + HEIGHT/2, shadow1.radius, shadow1.color);
 	PrintCircle(console, WIDTH, HEIGHT, shadow2.pos.x + WIDTH/2, shadow2.pos.y + HEIGHT/2, shadow2.radius, shadow2.color);
 
-	PrintConsolePadded(console, WIDTH, HEIGHT);
-	usleep(5000);
+	// PrintConsoleSpace(console, WIDTH, HEIGHT);
+	PrintConsole(console, WIDTH, HEIGHT);
+	// usleep(5000);
     }
     
 
     // mem_free(console, HEIGHT);
-    GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE1D(console);
     return 0;
 }
 

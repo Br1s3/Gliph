@@ -8,6 +8,7 @@ CFLAGS +=	\
 -lm   	        \
 -g3
 
+#-O3
 
 .PHONY: all clean
 

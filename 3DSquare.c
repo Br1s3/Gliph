@@ -1,7 +1,7 @@
 #include <unistd.h>
-// #include <raylib.h>
 #include <math.h>
 
+// #define GLIPH_DYNAMIC
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
@@ -109,7 +109,7 @@ int main()
     Square_Connexion_init(&Sc);
     
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_ALLOC(char, console, WIDTH, HEIGHT);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;
@@ -146,7 +146,6 @@ int main()
 
 	usleep(dt*1000000);
     }
-    // mem_free(console, HEIGHT);
-    GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE(console);
     return 0;    
 }
