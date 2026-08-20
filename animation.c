@@ -28,6 +28,5 @@ int main()
 	usleep(50000);
     }
     puts("tout c'est bien passé");
-
     return 0;
 }

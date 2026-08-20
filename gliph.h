@@ -1,24 +1,24 @@
 /* To use it:
  *
- *     #define GRAPHLIB_IMPLEMENTATION
- *     #include "graphlib.h"
+ *     #define GLIPH_IMPLEMENTATION
+ *     #include "gliph.h"
  *
  * Basic usage:
  *
- *     #define GRAPHLIB_IMPLEMENTATION
- *     #include "graphlib.h"
+ *     #define GLIPH_IMPLEMENTATION
+ *     #include "gliph.h"
  *
  *     #define HEIGHT (9*2)
  *     #define WIDTH (16*2)
  *
  *     int main()
  *     {
- *         GRAPHLIB_MALLOC2D(char, console, HEIGHT, WIDTH);
- *         PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
- *         PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
- *         PrintCircle(console, WIDTH, HEIGHT, WIDTH/2, HEIGHT/2, 5, '@');
- *         PrintConsoleSpace(console, WIDTH, HEIGHT);
- *         GRAPHLIB_FREE2D(console, HEIGHT);
+ *         GLIPH_ALLOC(console, WIDTH, HEIGHT);
+ *         ConsoleClear(console, ' ');
+ *         PrintRectangle(console, 0, 0, WIDTH, HEIGHT, '#');
+ *         PrintRectangle(console, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+ *         PrintCircle(console, WIDTH/2, HEIGHT/2, 5, '@');
+ *         PrintConsole(console);
  *         return 0;
  *     }
  *
@@ -71,7 +71,7 @@
 #endif
 # define pixels2d ARRAYCONVERTD1TOD2_GLIPH(pixels._1d, pixels.w)
 
-#define TESTMALLOC(x)                                                          \
+#define TESTALLOC(x)                                                           \
 do                                                                             \
 {                                                                              \
     if (x == NULL) {                                                           \
@@ -118,7 +118,7 @@ typedef struct
 
 #ifdef GLIPH_DYNAMIC
 # define GLIPH_ALLOC(name, W, H)                                  \
-    char __screen1d = (char *)malloc(sizeof(char) * ((W+1)*H+1)); \
+    char *__screen1d = (char *)malloc(sizeof(char) * ((W+1)*H+1)); \
     TESTALLOC(__screen1d);                                        \
     Screen name = {._1d=__screen1d, .w=W, .h=H};                  \
     do {                                                          \
@@ -126,7 +126,7 @@ typedef struct
             ((char (*)[W+1])name._1d)[i][W] = '\n';               \
         }                                                         \
     } while (0)
-# define GLIPH_FREE(name) free(name._1d);
+# define GLIPH_FREE(name) free(name._1d)
 #else
 # define GLIPH_ALLOC(name, W, H)                      \
     char __screen1d[H*(W+1)+1];                       \
@@ -330,10 +330,12 @@ void ClearDrawing(uint8_t ***pixels, short width, short height, const uint32_t f
 void DrawLine(uint8_t ***pixels, short width, short height, int ax, int ay, int bx, int by, const uint32_t fd)
 {
     COORDF a, b, AB;
-    a.x = (float)ax/(float)(width/2);
-    a.y = (float)ay/(float)(-height/2);
-    b.x = (float)bx/(float)(width/2);
-    b.y = (float)by/(float)(-height/2);
+    const int midH = height/2;
+    const int midW = width/2;
+    a.x = (float)ax/(float)(midW);
+    a.y = (float)ay/(float)(-midH);
+    b.x = (float)bx/(float)(midW);
+    b.y = (float)by/(float)(-midH);
     AB.x = b.x - a.x;
     AB.y = b.y - a.y;
     // TODO: Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
@@ -341,10 +343,10 @@ void DrawLine(uint8_t ***pixels, short width, short height, int ax, int ay, int 
     for (double t = 0; t < 1; t+=0.01) {
 	double x = (AB.x*t + a.x);
 	double y = (AB.y*t + a.y);
-        if (ABS_GLIPH(x*(width/2)) > width/2-1 || ABS_GLIPH(y*(height/2)) > height/2-1) break;
-        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][0] = fd>>(8*3);
-        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][1] = fd>>(8*2);
-        pixels[(int)(-y*(height/2)) + height/2][(int)(x*width/2) + width/2][2] = fd>>(8*1);
+        if (ABS_GLIPH(x*(midW)) > midW-1 || ABS_GLIPH(y*(midH)) > midH-1) break;
+        pixels[(int)(midH*(1 - y))][(int)(midW*(1 + x))][0] = fd>>(24); // 8*3
+        pixels[(int)(midH*(1 - y))][(int)(midW*(1 + x))][1] = fd>>(16); // 8*2
+        pixels[(int)(midH*(1 - y))][(int)(midW*(1 + x))][2] = fd>>(8);// 8*1
     }
 }
 
@@ -354,13 +356,17 @@ void DrawCircle(uint8_t ***pixels, short width, short height, int x, int y, int 
     for (i = 0; i < height; i++) {
 	for (j = 0; j < width; j++) {
             if ((i-y)*(i-y) + (j-x)*(j-x) <= radius*radius) {
-		pixels[i][j][0] |= fd>>(8*3);
-		pixels[i][j][1] |= fd>>(8*2);
-		pixels[i][j][2] |= fd>>(8*1);
+		pixels[i][j][0] |= fd>>(24); // 8*3
+		pixels[i][j][1] |= fd>>(16); // 8*2
+		pixels[i][j][2] |= fd>>(8); // 8*1
             }
 	}
     }
 }
+
+#  ifdef pixels2d
+#   undef pixels2d
+#  endif
 
 # endif // GLIPH_IMPLEMENTATION
 #endif // GLIPH_H_INCLUED
@@ -375,4 +381,6 @@ TODO:
 - Modify t step with 3 if statement if (sqrt(h² + w²) > 1000) t+=0.0001 else reduce
 in PrintLine() and DrawLine()
 - Add DrawRectangle()
-***********************************/
+- Line: 230:
+    Change PrintDisk name by PrintCercle and vice vera
+ **********************************/
