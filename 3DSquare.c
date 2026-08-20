@@ -109,7 +109,7 @@ int main()
     Square_Connexion_init(&Sc);
     
     // char **console = mem_alloc(HEIGHT, WIDTH);
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_ALLOC(console, WIDTH, HEIGHT);
 
     const double dt = 1.f/FPS;    
     double dz    = 1;
@@ -119,13 +119,13 @@ int main()
     while (1) {
 	// dz    += 1*dt;
 	angle += 1*M_PI*dt;
-	ConsoleClear(console, WIDTH, HEIGHT, '`');
+	ConsoleClear(console, '`');
 
 	// for (int i = 0; i < 8; i++) {
 	//     COORD3DF buf = S.p[i];
 	//     XZ_rotation(&buf, angle);
 	//     Z_translation(&buf, dz);
-	//     PrintRectangle(console, WIDTH, HEIGHT, convert(buf).x*(WIDTH/2) + WIDTH/2, convert(buf).y*(HEIGHT/2) + HEIGHT/2, SIZESQUARE, SIZESQUARE, '@');
+	//     PrintRectangle(console, convert(buf).x*(WIDTH/2) + WIDTH/2, convert(buf).y*(HEIGHT/2) + HEIGHT/2, SIZESQUARE, SIZESQUARE, '@');
 	// }
 
 	for (int i = 0; i < 6; i++) {
@@ -137,16 +137,16 @@ int main()
 		Z_translation(&buf[1], dz);
 		buf[0] = convert(buf[0]);
 		buf[1] = convert(buf[1]);
-		PrintLine(console, WIDTH, HEIGHT, buf[0].x*(WIDTH/2), -buf[0].y*(HEIGHT/2), buf[1].x*(WIDTH/2), -buf[1].y*(HEIGHT/2), '+');
+		PrintLine(console, buf[0].x*(WIDTH/2), -buf[0].y*(HEIGHT/2), buf[1].x*(WIDTH/2), -buf[1].y*(HEIGHT/2), '+');
 	    }
 	}
 
-	PrintConsole(console, WIDTH, HEIGHT);
-	// PrintConsolePadded(console, WIDTH, HEIGHT); // No need here because formula self compense the width
+	PrintConsole(console);
+	// PrintConsolePadded(console); // No need here because formula self compense the width
 
 	usleep(dt*1000000);
     }
     // mem_free(console, HEIGHT);
-    GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE2D(console, HEIGHT);
     return 0;    
 }

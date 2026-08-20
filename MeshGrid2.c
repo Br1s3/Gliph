@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define GLIPH_SPACEPADDING
 #define GLIPH_IMPLEMENTATION
 #include "gliph.h"
 
@@ -43,7 +44,7 @@ void SetMeshGrid(Window *win, unsigned int w, unsigned int h, unsigned int meshg
 
 int main()
 {
-    GLIPH_MALLOC2D(char, console, WIDTH, HEIGHT);
+    GLIPH_ALLOC(console, WIDTH, HEIGHT);
     Window wind;
 
     int k = 20;
@@ -57,16 +58,16 @@ int main()
 	    if (++j >= wind.y) j = 0;
 	}
 
-	PrintRectangle(console, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, '#');
-	PrintRectangle(console, WIDTH, HEIGHT, 1, 1, WIDTH-2, HEIGHT-2, ' ');
+	PrintRectangle(console, 0, 0, WIDTH, HEIGHT, '#');
+	PrintRectangle(console, 1, 1, WIDTH-2, HEIGHT-2, ' ');
 
-	PrintRectangle(console, WIDTH, HEIGHT, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
+	PrintRectangle(console, MESHOFFSET_X(wind, i), MESHOFFSET_Y(wind, j), wind.grid, wind.grid, '@');
 
-	PrintConsolePadded(console, WIDTH, HEIGHT);
+	PrintConsole(console);
 	usleep(30000);
 	printf("k = %d     \n", k);
     }
 
-    GLIPH_FREE2D(console, HEIGHT);
+    // GLIPH_FREE2D(console, HEIGHT);
     return 0;
 }
