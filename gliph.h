@@ -148,7 +148,7 @@
 // #define MIN_GLIPH(x, y) ((x)>(y) ? (y) : (x))
 // #define CEIL_GLIPH(x) ((x) >= 0.5f ? 1 : 0)
 #define ABS_GLIPH(x) ((x) < 0 ? (-x) : (x))
-#define D2TOD1_GLIPH(x, y) (((x)*(pixels.w+1)) + (y))
+#define D2TOD1_GLIPH(x, y, W) (((y)*(W+1)) + (x))
 #define MOVETO_GLIPH(y, x) printf("\033[%d;%dH", (y), (x))
 #define MOVETO0_0_GLIPH  \
     static const char tab[] = "\033[0;0H"; \
@@ -157,6 +157,7 @@
 
 // This pixels2d simplify the convertion only for this file
 #ifdef pixels2d
+# warning pixels2d has been undefined
 # undef pixels2d
 #endif
 # define pixels2d ARRAYCONVERTD1TOD2_GLIPH(pixels._1d, pixels.w)
